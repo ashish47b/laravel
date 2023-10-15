@@ -13,8 +13,13 @@ use Illuminate\Support\Facades\Hash as FacadesHash;
 class Login extends Controller
 {
     public function login(){
-        return view('user.signin');
-    }
+        if(session()->has('userid')){
+            return redirect('Dashboard');
+        }else{
+            return view('user.signin');
+        }
+        }
+
     public function registration(){
         if(session()->has('userid')){
             return redirect('Dashboard');
