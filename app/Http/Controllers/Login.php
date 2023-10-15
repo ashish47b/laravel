@@ -13,13 +13,13 @@ use Illuminate\Support\Facades\Hash as FacadesHash;
 class Login extends Controller
 {
     public function login(){
-        return view('signin');
+        return view('user.signin');
     }
     public function registration(){
-        return view('signup');
+        return view('user.signup');
     }
     public function forgotPassword(){
-        return view('forgot_password');
+        return view('user.forgot_password');
     }
     public function userRegister(Request $request){
          $request->validate([
