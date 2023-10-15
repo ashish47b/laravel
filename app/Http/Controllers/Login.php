@@ -16,7 +16,12 @@ class Login extends Controller
         return view('user.signin');
     }
     public function registration(){
-        return view('user.signup');
+        if(session()->has('userid')){
+            return redirect('Dashboard');
+        }else{
+            return view('user.signup');
+        }
+
     }
     public function forgotPassword(){
         return view('user.forgot_password');
@@ -31,7 +36,10 @@ class Login extends Controller
          $user = new Users();
          $user->name = $request->name;
          $user->email = $request->email;
+         $user->roll = 1;
+         $user->status = 1;
          $user->password = Hash::make($request->password);
+
         $res=$user->save();
         if($res){
             return back()->with('success','Account Created Successfully');
@@ -47,8 +55,12 @@ class Login extends Controller
         $user=Users::where('email','=',$request->email)->first();
         if($user){
              if(Hash::check($request->password, $user->password)){
-                  $request->session()->put('userid',$user->id);
-                  return redirect('Dashboard');
+                $updateUser =  Users::where('email','=',$request->email)->update(array('login_status' => 1));
+                    if($updateUser){
+                        $request->session()->put('userid',$user->id);
+                        return redirect('Dashboard');
+                    }
+
              }else{
                 return back()->with('error','Password Not Matched');
              }

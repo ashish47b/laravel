@@ -19,4 +19,9 @@ Route::get('/registration',[Login::class,'registration'])->name('Registration.ht
 Route::get('/Forgot-Password',[Login::class,'forgotPassword']);
 Route::post('/User-Register',[Login::class,'userRegister'])->name('User-Register');
 Route::post('/User-Login',[Login::class,'userLogin'])->name('User-Login');
-Route::get('/Dashboard',[Dashboard::class,'dashboard']);
+
+Route::group(['middleware'=>['checkUserLogin']],function(){
+    Route::get('/Dashboard',[Dashboard::class,'dashboard']);
+    Route::get('/Logout',[Dashboard::class,'logout']);
+
+});

@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('roll')->nullable();
             $table->string('profile_pic')->nullable();
             $table->string('mobile_no')->nullable();
+            $table->string('login_status')->nullable();
            });
         });
     }

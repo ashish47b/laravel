@@ -13,7 +13,19 @@ class Dashboard extends Controller
         $data=[];
         if(Session::has('userid')){
            $data['userdata']=Users::where('id','=',Session::get('userid'))->first();
+           return view('dashboard.masterDashboard',$data);
+        }else{
+        return redirect('/');
         }
-        return view('masterDashboard',$data);
+
+     }
+     public function logout(){
+        if(Session::has('userid')){
+            $updateUser =  Users::where('id','=',Session::get('userid'))->update(array('login_status' => 0));
+            if($updateUser){
+                session()->pull('userid');
+                return redirect('/');
+            }
+         }
      }
 }
