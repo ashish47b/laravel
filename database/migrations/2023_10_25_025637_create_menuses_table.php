@@ -11,15 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('users', function (Blueprint $table) {
-           $table->after('password',function($table){
+        Schema::create('menuses', function (Blueprint $table) {
+            $table->id();
+            $table->string('name')->nullable();
+            $table->string('parents')->nullable();
             $table->string('status')->nullable();
-            $table->string('roll')->nullable();
-            $table->string('profile_pic')->nullable();
-            $table->string('mobile_no')->nullable();
-            $table->string('login_status')->nullable();
             $table->string('created_by_cid')->nullable();
-           });
+            $table->string('created_by')->nullable();
+            $table->timestamps();
         });
     }
 
@@ -28,8 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('users', function (Blueprint $table) {
-            //
-        });
+        Schema::dropIfExists('menuses');
     }
 };

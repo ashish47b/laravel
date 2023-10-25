@@ -13,11 +13,11 @@ use Illuminate\Support\Facades\Hash as FacadesHash;
 class Login extends Controller
 {
     public function login(){
-        if(session()->has('userid')){
-            return redirect('Dashboard');
-        }else{
-            return view('user.signin');
-        }
+            if(session()->has('userid')){
+               return redirect('Dashboard');
+            }else{
+               return view('user.signin');
+            }
         }
 
     public function registration(){
@@ -43,9 +43,9 @@ class Login extends Controller
          $user->email = $request->email;
          $user->roll = 1;
          $user->status = 1;
+         $user->created_by_cid = 1;
          $user->password = Hash::make($request->password);
-
-        $res=$user->save();
+         $res=$user->save();
         if($res){
             return back()->with('success','Account Created Successfully');
         }else{

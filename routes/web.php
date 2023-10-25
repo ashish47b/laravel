@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Login;
 use App\Http\Controllers\Dashboard;
+use App\Http\Controllers\MenusController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,5 +24,8 @@ Route::post('/User-Login',[Login::class,'userLogin'])->name('User-Login');
 Route::group(['middleware'=>['checkUserLogin']],function(){
     Route::get('/Dashboard',[Dashboard::class,'dashboard']);
     Route::get('/Logout',[Dashboard::class,'logout']);
+    Route::get('/menu',[MenusController::class,'index']);
+    Route::post('/get-all-menu-list',[MenusController::class,'getallmenulist'])->name('get-all-menu-list');
+    Route::post('/createMenu',[MenusController::class,'create']);
 
 });
